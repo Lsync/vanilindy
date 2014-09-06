@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="2" >
+
+    <dataSet config="main" >
+        <source path="W:\vanilla\vanilindy\StudioProject\app\src\main\assets" >
+            <file
+                name="about.html"
+                path="W:\vanilla\vanilindy\StudioProject\app\src\main\assets\about.html" />
+        </source>
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="W:\vanilla\vanilindy\StudioProject\app\src\debug\assets" />
+    </dataSet>
+
+</merger>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Copyright (C) 2012 Adrian Ulrich <adrian@blinkenlights.ch>
+Copyright (C) 2012 Christopher Eby <kreed@kreed.org>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ch.blinkenlights.android.vanilla"
+    android:installLocation="auto"
+    android:versionCode="926"
+    android:versionName="0.9.26" >
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="16" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- This is needed for isWiredHeadsetOn() to work in some cases. (bug?) -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+    <application
+        android:backupAgent="ch.blinkenlights.android.vanilla.PreferencesBackupAgent"
+        android:icon="@drawable/icon"
+        android:label="@string/app_name" >
+        <activity
+            android:name="ch.blinkenlights.android.vanilla.FullPlaybackActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/Playback" />
+        <activity
+            android:name="ch.blinkenlights.android.vanilla.LibraryActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/Library"
+            android:uiOptions="splitActionBarWhenNarrow" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="ch.blinkenlights.android.vanilla.PlaylistActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/BackActionBar" />
+        <activity
+            android:name="ch.blinkenlights.android.vanilla.MiniPlaybackActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"
+            android:theme="@style/Dialog" />
+        <activity
+            android:name="ch.blinkenlights.android.vanilla.ShowQueueActivity"
+            android:launchMode="singleInstance"
+            android:theme="@style/BackActionBar" />
+
+        <receiver
+            android:name="ch.blinkenlights.android.vanilla.OneCellWidget"
+            android:label="Vanilla Music 1x1" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/one_cell_widget" />
+        </receiver>
+        <receiver
+            android:name="ch.blinkenlights.android.vanilla.FourLongWidget"
+            android:label="Vanilla Music 4x1 A" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/four_long_widget" />
+        </receiver>
+        <receiver
+            android:name="ch.blinkenlights.android.vanilla.FourWhiteWidget"
+            android:label="Vanilla Music 4x1 White" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/four_white_widget" />
+        </receiver>
+        <receiver
+            android:name="ch.blinkenlights.android.vanilla.WidgetE"
+            android:label="Vanilla Music 4x1 B" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_e" />
+        </receiver>
+        <receiver
+            android:name="ch.blinkenlights.android.vanilla.FourSquareWidget"
+            android:label="Vanilla Music 2x2 A" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/four_square_widget" />
+        </receiver>
+        <receiver
+            android:name="ch.blinkenlights.android.vanilla.WidgetD"
+            android:label="Vanilla Music 2x2 B" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_d" />
+        </receiver>
+        <receiver android:name="ch.blinkenlights.android.vanilla.MediaButtonReceiver" >
+            <intent-filter android:priority="999" >
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="ch.blinkenlights.android.vanilla.PlaybackService" >
+            <intent-filter>
+                <action android:name="ch.blinkenlights.android.vanilla.action.PLAY" />
+                <action android:name="ch.blinkenlights.android.vanilla.action.PAUSE" />
+                <action android:name="ch.blinkenlights.android.vanilla.action.TOGGLE_PLAYBACK" />
+                <action android:name="ch.blinkenlights.android.vanilla.action.NEXT_SONG" />
+                <action android:name="ch.blinkenlights.android.vanilla.action.PREVIOUS_SONG" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name="ch.blinkenlights.android.vanilla.PreferencesActivity"
+            android:theme="@style/BackActionBar" />
+        <activity
+            android:name="ch.blinkenlights.android.vanilla.PreferencesActivity$ReplayGainActivity"
+            android:theme="@style/BackActionBar" />
+        <activity android:name="ch.blinkenlights.android.vanilla.PreferencesActivity$AudioActivity" />
+        <activity android:name="ch.blinkenlights.android.vanilla.PreferencesActivity$PlaybackActivity" />
+        <activity android:name="ch.blinkenlights.android.vanilla.PreferencesActivity$LibraryActivity" />
+        <activity android:name="ch.blinkenlights.android.vanilla.PreferencesActivity$NotificationsActivity" />
+        <activity android:name="ch.blinkenlights.android.vanilla.PreferencesActivity$ShakeActivity" />
+        <activity android:name="ch.blinkenlights.android.vanilla.PreferencesActivity$CoverArtActivity" />
+        <activity android:name="ch.blinkenlights.android.vanilla.PreferencesActivity$MiscActivity" />
+        <activity android:name="ch.blinkenlights.android.vanilla.PreferencesActivity$AboutActivity" />
+        <activity
+            android:name="ch.blinkenlights.android.vanilla.TabOrderActivity"
+            android:theme="@style/BackActionBar" />
+        <activity
+            android:name="ch.blinkenlights.android.vanilla.FilebrowserStartActivity"
+            android:theme="@style/BackActionBar" />
+    </application>
+
+</manifest>
